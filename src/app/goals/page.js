@@ -6,6 +6,12 @@ const goals = [
   { name: 'Build Muscle', img: '/images/muscle.png' },
   { name: 'Improve Endurance', img: '/images/endurance.png' },
   { name: 'Stay Active', img: '/images/active.png' },
+  { name: 'Cardiovascular Health', img: '/images/cardiovascular.png' },
+  { name: 'Recomposition', img: '/images/recomposition.png' },
+  { name: 'Increase Strength', img: '/images/strength.png' },
+  { name: 'Improve Speed', img: '/images/speed.png' },
+  { name: 'Increase Flexibility', img: '/images/flexibility.png' },
+  { name: 'Improve Athletic Performance', img: '/images/athletic-performance.png' },
 ];
 
 export default function GoalsPage() {
