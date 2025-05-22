@@ -6,8 +6,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Link from 'next/link';
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -46,59 +46,65 @@ const workoutPlan = {
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="w-full bg-gray-200 text-black px-6 py-4 shadow flex justify-between items-center">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <nav className="w-full bg-gray-100 text-black px-6 py-4 shadow flex justify-between items-center">
         <div className="flex space-x-4 items-center">
-          <FaUsers size={28} className="cursor-pointer" title="Community" />
-          <FaBell size={24} className="cursor-pointer" />
-          <FaCheckCircle size={24} className="cursor-pointer" />
+          <FaUsers size={26} className="cursor-pointer text-gray-700 hover:text-blue-600" title="Community" />
+          <FaBell size={22} className="cursor-pointer text-gray-700 hover:text-blue-600" />
+          <FaCheckCircle size={22} className="cursor-pointer text-gray-700 hover:text-blue-600" />
           <Link href="/profile">
-            <FaUserCircle size={30} className="cursor-pointer hover:text-blue-600" />
+            <FaUserCircle size={28} className="cursor-pointer hover:text-blue-600 text-gray-800" />
           </Link>
         </div>
-        <div>
-          <span className="text-xl font-bold">MyApp Dashboard</span>
-        </div>
+        <h1 className="text-2xl font-bold tracking-tight">My Wellness Dashboard</h1>
       </nav>
 
-      <div className="max-w-7xl mx-auto p-4 space-y-6">
-        <section className="bg-blue-100 rounded-xl p-6 shadow">
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        <section className="bg-blue-100 rounded-2xl p-6 shadow-md">
           <h2 className="text-2xl font-bold mb-4">🔥 Top Upcoming Events</h2>
           <div className="grid md:grid-cols-3 gap-4">
             {events.slice(0, 3).map((event) => (
-              <div key={event.id} className="bg-white rounded-lg p-4 shadow hover:shadow-md transition">
-                <h3 className="text-lg font-semibold">{event.title}</h3>
-                <p className="text-sm text-gray-600">{event.date}</p>
-                <p className="mt-2 text-gray-800">{event.location}</p>
-                <button className="mt-4 text-blue-600 hover:underline">View Details</button>
+              <div key={event.id} className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition">
+                <h3 className="text-lg font-semibold text-gray-800">{event.title}</h3>
+                <p className="text-sm text-gray-500">{event.date}</p>
+                <p className="mt-2 text-gray-700">{event.location}</p>
+                <button className="mt-4 text-blue-600 font-medium hover:underline">View Details</button>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-white rounded-xl p-6 shadow">
-          <h2 className="text-2xl font-bold mb-4">📈 Activity Monitor</h2>
+        <section className="bg-white rounded-2xl p-6 shadow-md">
+          <h2 className="text-2xl font-bold mb-4">📊 Activity Monitor</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={activityData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+            <BarChart data={activityData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis allowDecimals={false} />
               <Tooltip />
-              <Line type="monotone" dataKey="activity" stroke="#2563eb" strokeWidth={3} dot={{ r: 4 }} />
-            </LineChart>
+              <Bar dataKey="activity" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </section>
 
-        <section className="bg-gray-100 rounded-xl p-6 shadow">
-          <h2 className="text-2xl font-bold mb-4 text-black">💪 Weekly Workout Plan</h2>
-          <ul className="space-y-3">
-            {Object.entries(workoutPlan).map(([day, activity]) => (
-              <li key={day} className="border-b pb-2">
-                <p className="text-lg font-semibold text-blue-700">{day}</p>
-                <p className="text-base text-gray-700">{activity}</p>
-              </li>
-            ))}
-          </ul>
+        <section className="bg-gray-100 rounded-2xl p-6 shadow-md">
+          <h2 className="text-2xl font-bold mb-4 text-black">💪 Weekly Workout Plan & 🥗 Nutrition Overview</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <ul className="space-y-4">
+              {Object.entries(workoutPlan).map(([day, activity]) => (
+                <li key={day} className="border-b pb-3">
+                  <p className="text-lg font-semibold text-blue-700">{day}</p>
+                  <p className="text-base text-gray-700">{activity}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="space-y-3 text-gray-700 text-base bg-white rounded-xl p-4 shadow-sm">
+              <p><strong>Total Calories Tracked:</strong> 0 kcal</p>
+              <p><strong>Average Daily Protein:</strong> — g</p>
+              <p><strong>Water Intake:</strong> — oz</p>
+              <p><strong>Fruits & Veggies Servings:</strong> — servings</p>
+            </div>
+          </div>
         </section>
       </div>
     </div>
